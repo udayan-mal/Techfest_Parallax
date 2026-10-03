@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Unbounded', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --color-ink: #05060c;
+  --color-dim: #8e8fa6;
+}
+
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+body {
+  background: #05060c;
+  color: #f4f4f8;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: #7dd3fc; color: #05060c; }
+::-webkit-scrollbar { width: 7px; }
+::-webkit-scrollbar-track { background: #05060c; }
+::-webkit-scrollbar-thumb { background: #2b2d45; border-radius: 7px; }
+
+/* ---------- scene shell ---------- */
+.scene { position: relative; width: 100%; }
+.scene-stack { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+.layer { position: absolute; inset: 0; will-change: transform, opacity, filter; }
+.layer-bl { will-change: transform, filter; }
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.glass {
+  background: rgba(8, 10, 22, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.holo {
+  background: linear-gradient(100deg, #ffffff 0%, #a5f3fc 35%, #c4b5fd 70%, #fbcfe8 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: holo 9s ease-in-out infinite alternate;
+}
+@keyframes holo { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
+
+.outline { color: transparent; -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.8); }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  padding: 0.9rem 1.6rem; border-radius: 999px;
+  font-size: 0.88rem; font-weight: 600;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+.btn-light { background: #f4f4f8; color: #05060c; box-shadow: 0 10px 40px -12px rgba(255, 255, 255, 0.5); }
+.btn-light:hover { transform: translateY(-2px); box-shadow: 0 16px 50px -10px rgba(255, 255, 255, 0.7); }
+.btn-ghost { border: 1px solid rgba(255, 255, 255, 0.25); color: #fff; }
+.btn-ghost:hover { background: rgba(255, 255, 255, 0.12); transform: translateY(-2px); }
+
+/* ---------- reveal ---------- */
+.r-line { display: inline-block; overflow: hidden; vertical-align: bottom; }
+.r-word { display: inline-block; opacity: 0; transform: translateY(110%); }
+.r-fade { opacity: 0; transform: translateY(28px); }
+
+/* ---------- floating decorations ---------- */
+@keyframes sway { 0%, 100% { transform: translateX(-8px) rotate(-1.5deg); } 50% { transform: translateX(8px) rotate(1.5deg); } }
+.sway { animation: sway 7s ease-in-out infinite; }
+@keyframes sway-slow { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-14px) rotate(2deg); } }
+.sway-slow { animation: sway-slow 11s ease-in-out infinite; }
+@keyframes drift { from { transform: translateX(-12%); } to { transform: translateX(12%); } }
+.drift { animation: drift 26s ease-in-out infinite alternate; }
+@keyframes glow-pulse { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
+.glow-pulse { animation: glow-pulse 4s ease-in-out infinite; }
+@keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
+.bob { animation: bob 3s ease-in-out infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.spin-slow { animation: spin 60s linear infinite; }
+@keyframes ray { 0%, 100% { opacity: 0.25; transform: skewX(-12deg) scaleY(1); } 50% { opacity: 0.6; transform: skewX(-12deg) scaleY(1.12); } }
+.ray { animation: ray 9s ease-in-out infinite; }
+@keyframes twinkle { 0%, 100% { opacity: 0.25; } 50% { opacity: 1; } }
+.twinkle { animation: twinkle 3.5s ease-in-out infinite; }
+
+.scroll-cue { animation: bob 2.2s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
